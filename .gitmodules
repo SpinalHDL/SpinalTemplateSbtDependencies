@@ -1,0 +1,3 @@
+[submodule "ext/VexRiscv"]
+	path = ext/VexRiscv
+	url = https://github.com/SpinalHDL/VexRiscv.git

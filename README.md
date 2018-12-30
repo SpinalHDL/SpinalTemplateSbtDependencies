@@ -4,3 +4,8 @@ For instance this SpinalTemplateSbtDependencies repo depend on https://github.co
 
 The only difference with the https://github.com/SpinalHDL/SpinalTemplateSbt are in the https://github.com/SpinalHDL/SpinalTemplateSbtDependencies/blob/superproject/build.sbt file. Just look at it, it is straight forward.
 
+To get to repository, do not forget to clone it recursively : 
+
+```sh
+git clone https://github.com/SpinalHDL/SpinalTemplateSbtDependencies.git --recursive
+``` 
