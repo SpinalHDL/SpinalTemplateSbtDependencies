@@ -8,12 +8,15 @@ lazy val root = (project in file("."))
     )),
     name := "superproject"
   ).dependsOn(vexRiscv)
-lazy val vexRiscv = RootProject(uri("git://github.com/SpinalHDL/VexRiscv.git"))
 
-//If you want a specific git commit : 
+//For dependancies localy on your computer : 
+lazy val vexRiscv = RootProject(file("./ext/VexRiscv"))
+
+//For dependancies on a git : 
+//lazy val vexRiscv = RootProject(uri("git://github.com/SpinalHDL/VexRiscv.git"))
+
+//For dependancies on a git with a specific commit : 
 //lazy val vexRiscv = RootProject(uri("git://github.com/SpinalHDL/VexRiscv.git#commitHash"))
 
-//If the dependancy is localy on your computer : 
-//lazy val vexRiscv = RootProject(file("local/path/to/the/VexRiscv/sbt/project/VexRiscv"))
 
 fork := true
