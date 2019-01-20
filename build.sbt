@@ -6,7 +6,11 @@ lazy val root = (project in file("."))
       scalaVersion := "2.11.12",
       version      := "0.1.0-SNAPSHOT"
     )),
-    name := "superproject"
+    name := "superproject",
+    libraryDependencies ++= Seq(
+      "com.github.spinalhdl" % "spinalhdl-core_2.11" % "1.3.1",
+      "com.github.spinalhdl" % "spinalhdl-lib_2.11" % "1.3.1"
+    )
   ).dependsOn(vexRiscv)
 
 //For dependancies localy on your computer : 
