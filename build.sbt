@@ -8,8 +8,8 @@ lazy val root = (project in file("."))
     )),
     name := "superproject",
     libraryDependencies ++= Seq(
-      "com.github.spinalhdl" % "spinalhdl-core_2.11" % "1.3.1",
-      "com.github.spinalhdl" % "spinalhdl-lib_2.11" % "1.3.1"
+      "com.github.spinalhdl" % "spinalhdl-core_2.11" % "1.3.2",
+      "com.github.spinalhdl" % "spinalhdl-lib_2.11" % "1.3.2"
     )
   ).dependsOn(vexRiscv)
 
