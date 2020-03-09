@@ -1,3 +1,4 @@
+val spinalVersion = "1.4.0"
 
 lazy val root = (project in file("."))
   .settings(
@@ -8,8 +9,9 @@ lazy val root = (project in file("."))
     )),
     name := "superproject",
     libraryDependencies ++= Seq(
-      "com.github.spinalhdl" % "spinalhdl-core_2.11" % "1.3.5",
-      "com.github.spinalhdl" % "spinalhdl-lib_2.11" % "1.3.5"
+      "com.github.spinalhdl" % "spinalhdl-core_2.11" % spinalVersion,
+      "com.github.spinalhdl" % "spinalhdl-lib_2.11" % spinalVersion,
+      compilerPlugin("com.github.spinalhdl" % "spinalhdl-idsl-plugin_2.11" % spinalVersion)
     )
   ).dependsOn(vexRiscv)
 
