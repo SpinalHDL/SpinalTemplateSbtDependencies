@@ -1,28 +1,37 @@
-val spinalVersion = "1.10.0"
+val spinalVersion = "dev"
+val spinalHdlFromSource = sys.env.getOrElse("SPINALHDL_FROM_SOURCE", "1") == "1"
+val spinalHdlPath = new File(sys.env.getOrElse("SPINALHDL_PATH", "ext/SpinalHDL")).getAbsolutePath
 
-lazy val root = (project in file("."))
-  .settings(
+def rootGen() = {
+  var ret = (project in file(".")).settings(
     inThisBuild(List(
       organization := "com.github.spinalhdl",
-      scalaVersion := "2.11.12",
-      version      := "0.1.0-SNAPSHOT"
+      scalaVersion := "2.12.18",
+      version := "2.0.0"
     )),
-    name := "superproject",
+    scalacOptions += s"-Xplugin:${new File(spinalHdlPath + s"/idslplugin/target/scala-2.12/spinalhdl-idsl-plugin_2.12-$spinalVersion.jar")}",
+    scalacOptions += s"-Xplugin-require:idsl-plugin",
+    scalacOptions += "-language:reflectiveCalls",
     libraryDependencies ++= Seq(
-      "com.github.spinalhdl" % "spinalhdl-core_2.11" % spinalVersion,
-      "com.github.spinalhdl" % "spinalhdl-lib_2.11" % spinalVersion,
-      compilerPlugin("com.github.spinalhdl" % "spinalhdl-idsl-plugin_2.11" % spinalVersion)
-    )
-  ).dependsOn(vexRiscv)
+      "org.scalatest" %% "scalatest" % "3.2.17"
+    ),
+    libraryDependencies ++= (if (spinalHdlFromSource) Nil else Seq(
+      "com.github.spinalhdl" %% "spinalhdl-core" % spinalVersion,
+      "com.github.spinalhdl" %% "spinalhdl-lib" % spinalVersion,
+      compilerPlugin("com.github.spinalhdl" %% "spinalhdl-idsl-plugin" % spinalVersion)
+    )),
+    name := "template"
+  )
+  if(spinalHdlFromSource){
+    ret = ret.dependsOn(spinalHdlIdslPlugin, spinalHdlSim, spinalHdlCore, spinalHdlLib, vexiiRiscv)
+  }
+  ret
+}
 
-//For dependancies localy on your computer : 
-lazy val vexRiscv = RootProject(file("./ext/VexRiscv"))
-
-//For dependancies on a git : 
-//lazy val vexRiscv = RootProject(uri("git://github.com/SpinalHDL/VexRiscv.git"))
-
-//For dependancies on a git with a specific commit : 
-//lazy val vexRiscv = RootProject(uri("git://github.com/SpinalHDL/VexRiscv.git#commitHash"))
-
-
+lazy val root = rootGen()
+lazy val spinalHdlIdslPlugin = ProjectRef(file(spinalHdlPath), "idslplugin")
+lazy val spinalHdlSim = ProjectRef(file(spinalHdlPath), "sim")
+lazy val spinalHdlCore = ProjectRef(file(spinalHdlPath), "core")
+lazy val spinalHdlLib = ProjectRef(file(spinalHdlPath), "lib")
+lazy val vexiiRiscv = RootProject(file("./ext/VexiiRiscv"))
 fork := true
