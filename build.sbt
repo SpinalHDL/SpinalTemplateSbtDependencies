@@ -19,10 +19,10 @@ lazy val root = (project in file("."))
 lazy val vexRiscv = RootProject(file("./ext/VexRiscv"))
 
 //For dependancies on a git : 
-//lazy val vexRiscv = RootProject(uri("git://github.com/SpinalHDL/VexRiscv.git"))
+//lazy val vexRiscv = RootProject(uri("https://github.com/SpinalHDL/VexRiscv.git"))
 
 //For dependancies on a git with a specific commit : 
-//lazy val vexRiscv = RootProject(uri("git://github.com/SpinalHDL/VexRiscv.git#commitHash"))
+//lazy val vexRiscv = RootProject(uri("https://github.com/SpinalHDL/VexRiscv.git#commitHash"))
 
 
 fork := true
